@@ -1,10 +1,8 @@
-###Simple script that searches html/creative gigs on craigslist for jobs!!
+###Simple scrapy project that searches html/creative gigs on craigslist for jobs!!
 
 ###Dependencies
-  *  BeautifulSoup
+  *  Scrapy
 
 ###Usage
-  * A config.py file must exist in the same directory as your script with the constants `EMAIL_USER` and `EMAIL_PASSWORD`  
+  * Scrapy settings.py file must exist with the constants `EMAIL_USER`, `EMAIL_PASSWORD`, `TO_EMAIL`, `SMTP_SERVER`, `SMTP_PORT`
   * Make sure you populate `my_skills_list` with your relevant skills
-  * `python gig_scraper.py`
-  * Set up as a cron to run!!!!! and watch the jobs come in!
