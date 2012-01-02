@@ -1,3 +1,4 @@
 config.py
+settings.py
 *.swp
 *.pyc
