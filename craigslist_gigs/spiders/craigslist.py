@@ -9,13 +9,11 @@ def get_start_urls():
   hardcoded.
   @return list the list of urls to scrape!
   """
-  """
-  'newyork',
-  'philadelphia',
-  'washingtondc',
-  """
   cities_list = [
     'baltimore',
+    'newyork',
+    'philadelphia',
+    'washingtondc',
   ]
   full_urls_list = []
   for city in cities_list:
@@ -42,7 +40,7 @@ class GigSpider(CrawlSpider):
     Check body of each individual post, for my skills. This is the callback for actual posts.
     """
     hxs = HtmlXPathSelector(response)
-    content = hxs.select('//div[@id="userbody"]/text()').extract()[0]
+    content = ','.join((item.strip() for item in hxs.select('//div[@id="userbody"]/text()').extract()))
     title = hxs.select('//body/h2/text()').extract()[0]
     matches_list = self.check_gig_for_skills(content)
     if matches_list:

@@ -9,6 +9,7 @@ import sqlite3
 # See: http://doc.scrapy.org/topics/item-pipeline.html
 
 class GigPipeline(object):
+  """This isn't using pipelines correctly could be refactored to do so."""
 
   def __init__(self):
     dispatcher.connect(self.spider_closed, signals.spider_closed)
@@ -16,7 +17,7 @@ class GigPipeline(object):
     self.cursor = self.connection.cursor()
 
   def spider_closed(self, spider):
-    import ipdb; ipdb.set_trace()
+    #import ipdb; ipdb.set_trace()
     unsent_gigs_list = self.check_gigs_sent(spider.relevant_gigs_list)
     if unsent_gigs_list:
       new_email = Email(unsent_gigs_list)
