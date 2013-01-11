@@ -5,8 +5,9 @@ from scrapy.selector import HtmlXPathSelector
 
 def get_start_urls():
   """
-  Return all start urls as an iterable, could add db support right now my chosen cities are
-  hardcoded.
+  Return all start urls as an iterable, 
+  could add db support right now my chosen cities are hardcoded.
+  How is the best way to dynamically set a Class attribute? idk
   @return list the list of urls to scrape!
   """
   cities_list = [
@@ -40,8 +41,10 @@ class GigSpider(CrawlSpider):
     Check body of each individual post, for my skills. This is the callback for actual posts.
     """
     hxs = HtmlXPathSelector(response)
-    content = ','.join((item.strip() for item in hxs.select('//div[@id="userbody"]/text()').extract()))
-    title = hxs.select('//body/h2/text()').extract()[0]
+    #import ipdb; ipdb.set_trace()
+
+    content = ','.join((item.strip() for item in hxs.select('//section[@id="userbody"]/text()').extract()))
+    title = hxs.select('//h2[@class="postingtitle"]/text()').extract()[0]
     matches_list = self.check_gig_for_skills(content)
     if matches_list:
       gig = Gig()
