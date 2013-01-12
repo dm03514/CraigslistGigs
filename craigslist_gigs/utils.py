@@ -1,28 +1,40 @@
 from craigslist_gigs import settings
 import smtplib
 
-class Email:
+class Email(object):
   
-  def __init__(self, matches_list):
+  def __init__(self):
     """
     Must contain a list of Gig items
     """
-    self.message = ''
-    for gig in matches_list:
-      self.message += '%s - %s - %s\n' % (gig['name'], gig['url'], ','.join(gig['skills']))
+    self.email_user = settings.EMAIL_USER
+    self.email_password = settings.EMAIL_PASSWORD 
+    self.smtp_server = settings.SMTP_SERVER
+    self.smpt_port = settings.SMTP_PORT
 
-  def send(self):
+
+  def build_message_from_gigs(self, gigs_list):
     """
-    Send an email.
+    Takes a list of scrapy Gig(Items) and builds a message string to 
+    send as email body
+    return string
     """
-    gmail_user = settings.EMAIL_USER
-    gmail_pwd = settings.EMAIL_PASSWORD 
+    message = ''
+    for gig in gigs_list:
+      message += '%s - %s - %s\n' % (gig['name'], gig['url'], ','.join(gig['skills']))
+    return message
+   
+
+  def send(self, recipient_address, message):
+    """
+    Send an email message to a recipient
+    """
     smtpserver = smtplib.SMTP(settings.SMTP_SERVER, settings.SMTP_PORT)
     smtpserver.ehlo()
     smtpserver.starttls()
-    smtpserver.login(gmail_user, gmail_pwd)
-    header = 'To:' + settings.TO_EMAIL + '\n' + 'From: ' + gmail_user + '\n' + 'Craigslist:Jobs' + '\n'
-    msg = header + '\n' + self.message + '\n\n'
-    smtpserver.sendmail(gmail_user, settings.TO_EMAIL, msg)
+    smtpserver.login(self.email_user, self.email_password)
+    header = 'To:' + recipient_address + '\n' + 'From: ' + self.email_user + '\n' + 'Craigslist:Jobs' + '\n'
+    msg = header + '\n' + message + '\n\n'
+    smtpserver.sendmail(self.email_user, recipient_address, msg)
     smtpserver.close()
 

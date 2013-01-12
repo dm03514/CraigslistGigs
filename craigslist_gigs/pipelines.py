@@ -17,11 +17,11 @@ class GigPipeline(object):
     self.cursor = self.connection.cursor()
 
   def spider_closed(self, spider):
-    #import ipdb; ipdb.set_trace()
     unsent_gigs_list = self.check_gigs_sent(spider.relevant_gigs_list)
     if unsent_gigs_list:
-      new_email = Email(unsent_gigs_list)
-      new_email.send()
+      new_email = Email()
+      message = new_email.build_message_from_gigs(unsent_gigs_list)
+      new_email.send(settings.TO_EMAIL, message)
       # loop back through and save each one as sent.
       self.record_sent_gigs(unsent_gigs_list)
       self.cursor.close()
