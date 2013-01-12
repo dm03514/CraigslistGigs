@@ -9,9 +9,11 @@ It requires a list of cities to search for and a list of skills.  The cities mus
 
 ###Usage
   * Create a db_gigs.db file in the same directory as settings.py
+  * CREATE TABLE gigs(name text, url text, skills text, gig_datetime datetime, sent boolean);
   * Scrapy settings.py file must exist with the constants `EMAIL_USER`, `EMAIL_PASSWORD`, `TO_EMAIL`, `SMTP_SERVER`, `SMTP_PORT`
   * Make sure you populate `settings.MY_SKILLS_LIST` with your relevant skills
   * settings.CITIES_LIST must have a list of cities.  These are used to create craigslist urls, of the form http://cityname.craigslist.org, so make sure they are valid
+  * `scrapy crawl gigs`
 
 Each computer gig found in the cities list will be checked to see if it contains any of you listed skills.
 
