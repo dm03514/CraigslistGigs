@@ -5,7 +5,7 @@ class Email(object):
   
   def __init__(self):
     """
-    Must contain a list of Gig items
+    Set the smpt credientials from the settings.py values
     """
     self.email_user = settings.EMAIL_USER
     self.email_password = settings.EMAIL_PASSWORD 
