@@ -1,8 +1,31 @@
 ###Simple scrapy project that searches html/creative gigs on craigslist for jobs!!
 
+It requires a list of cities to search for and a list of skills.  The cities must be valid craigslist cities.  It will then search all computer gigs in those cities for any gigs which contain your skills.  It will email you all gigs that have not yet been mailed to you.  It keeps track of gigs in a sqlite database named db_gigs.db located in the same directory as your `settings.py` file
+
 ###Dependencies
-  *  Scrapy
+  *  Scrapy (pip install scrapy)
+  *  requirements.txt has scrapy version and versions of all components
+
 
 ###Usage
+  * Create a db_gigs.db file in the same directory as settings.py
   * Scrapy settings.py file must exist with the constants `EMAIL_USER`, `EMAIL_PASSWORD`, `TO_EMAIL`, `SMTP_SERVER`, `SMTP_PORT`
-  * Make sure you populate `my_skills_list` with your relevant skills
+  * Make sure you populate `settings.MY_SKILLS_LIST` with your relevant skills
+  * settings.CITIES_LIST must have a list of cities.  These are used to create craigslist urls, of the form http://cityname.craigslist.org, so make sure they are valid
+
+Each computer gig found in the cities list will be checked to see if it contains any of you listed skills.
+
+
+
+
+The email that is sent is very simple:
+
+Need a skilled IPB Forum/IP.Content programmer (Alexandria, Virginia) - http://washingtondc.craigslist.org/nva/cpg/3522913878.html - php,html
+Junior Software Engineer / Web programmer (Massapequa, NY) - http://newyork.craigslist.org/lgi/cpg/3512399543.html - php,css,html
+Graphic Position (Ronkonkoma) - http://newyork.craigslist.org/lgi/cpg/3485356110.html - javascript
+Website Developer (N/A) - http://newyork.craigslist.org/stn/cpg/3476870457.html - php,css,html,javascript
+Professional Website Developer (N/A) - http://newyork.craigslist.org/stn/cpg/3476881527.html - php,css,html,javascript
+Front-End Developer Needed (Westchester NY) - http://newyork.craigslist.org/wch/cpg/3473266282.html - css,html,javascript
+Web Developer (Port Chester, NY) - http://newyork.craigslist.org/wch/cpg/3533739219.html - php,css,html,javascript
+
+It has Post Title, link, and skills that post contains

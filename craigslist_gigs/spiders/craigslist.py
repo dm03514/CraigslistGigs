@@ -1,3 +1,4 @@
+from craigslist_gigs import settings
 from craigslist_gigs.items import Gig
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
@@ -10,14 +11,8 @@ def get_start_urls():
   How is the best way to dynamically set a Class attribute? idk
   @return list the list of urls to scrape!
   """
-  cities_list = [
-    'baltimore',
-    'newyork',
-    'philadelphia',
-    'washingtondc',
-  ]
   full_urls_list = []
-  for city in cities_list:
+  for city in settings.CITIES_LIST:
     full_urls_list.append('http://%s.craigslist.org' % (city))
   return full_urls_list
 
@@ -26,8 +21,6 @@ class GigSpider(CrawlSpider):
   name = 'gigs'
   start_urls = get_start_urls()
 
-  # used to check listings for matching gigs
-  my_skills_list = ['php', 'python', 'django', 'css', 'html', 'javascript',]
   # stores matching gigs so they can be emailed later
   relevant_gigs_list = []
 
@@ -41,7 +34,6 @@ class GigSpider(CrawlSpider):
     Check body of each individual post, for my skills. This is the callback for actual posts.
     """
     hxs = HtmlXPathSelector(response)
-    #import ipdb; ipdb.set_trace()
 
     content = ','.join((item.strip() for item in hxs.select('//section[@id="userbody"]/text()').extract()))
     title = hxs.select('//h2[@class="postingtitle"]/text()').extract()[0]
@@ -60,7 +52,7 @@ class GigSpider(CrawlSpider):
     @return list the matching skills or an empty list
     """
     matches_list = []
-    for skill in self.my_skills_list:
+    for skill in settings.MY_SKILLS_LIST:
       if skill in content.lower():
         matches_list.append(skill)
     return matches_list

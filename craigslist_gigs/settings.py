@@ -28,6 +28,12 @@ PROJECT_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)))
 
 DATABASE_NAME = os.path.join(PROJECT_ROOT, 'db_gigs.db')
 
+CITIES_LIST = [
+]
+
+MY_SKILLS_LIST = [
+]
+
 try:
     from settings_local import *
 except ImportError:
