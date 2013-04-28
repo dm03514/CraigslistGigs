@@ -11,6 +11,7 @@ def get_start_urls():
   How is the best way to dynamically set a Class attribute? idk
   @return list the list of urls to scrape!
   """
+  return ['http://baltimore.craigslist.org/cpg/3693954402.html']
   full_urls_list = []
   for city in settings.CITIES_LIST:
     full_urls_list.append('http://%s.craigslist.org' % (city))
@@ -34,9 +35,11 @@ class GigSpider(CrawlSpider):
     Check body of each individual post, for my skills. This is the callback for actual posts.
     """
     hxs = HtmlXPathSelector(response)
+    #import ipdb; ipdb.set_trace()
 
-    content = ','.join((item.strip() for item in hxs.select('//section[@id="userbody"]/text()').extract()))
-    title = hxs.select('//h2[@class="postingtitle"]/text()').extract()[0]
+    content = ','.join((item.strip() for item in hxs.select('//section[@id="postingbody"]/text()').extract()))
+    title_parts_list = hxs.select('//h2[@class="postingtitle"]/text()').extract()
+    title = ','.join(x.strip() for x in title_parts_list if x.strip())
     matches_list = self.check_gig_for_skills(content)
     if matches_list:
       gig = Gig()
