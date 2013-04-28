@@ -24,7 +24,7 @@ EMAIL_PASSWORD = ''
 SMTP_SERVER = ''
 SMTP_PORT = '' 
 
-PROJECT_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 DATABASE_NAME = os.path.join(PROJECT_ROOT, 'db_gigs.db')
 
