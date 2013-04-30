@@ -11,7 +11,6 @@ def get_start_urls():
   How is the best way to dynamically set a Class attribute? idk
   @return list the list of urls to scrape!
   """
-  return ['http://baltimore.craigslist.org/cpg/3693954402.html']
   full_urls_list = []
   for city in settings.CITIES_LIST:
     full_urls_list.append('http://%s.craigslist.org' % (city))
