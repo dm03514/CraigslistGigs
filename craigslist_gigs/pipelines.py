@@ -32,7 +32,6 @@ class GigPipeline(object):
             return DropItem('No matching skills: {}'.format(gig['url']))
 
         gig['skills'] = matching_skills
-        #import ipdb; ipdb.set_trace()
 
         # check if gig has already been saved
         query = 'SELECT COUNT(*) FROM gigs WHERE url=?'

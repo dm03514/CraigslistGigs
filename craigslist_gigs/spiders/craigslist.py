@@ -1,20 +1,10 @@
-from craigslist_gigs import settings
-from craigslist_gigs.items import Gig
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import HtmlXPathSelector
 
-def get_start_urls():
-    """
-    Return all start urls as an iterable, 
-    could add db support right now my chosen cities are hardcoded.
-    How is the best way to dynamically set a Class attribute? idk
-    @return list the list of urls to scrape!
-    """
-    full_urls_list = []
-    for city in settings.CITIES_LIST:
-        full_urls_list.append('http://%s.craigslist.org' % (city))
-    return full_urls_list
+from craigslist_gigs import settings
+from craigslist_gigs.items import Gig
+from craigslist_gigs.utils import get_start_urls 
 
 
 class GigSpider(CrawlSpider):
