@@ -6,6 +6,7 @@
 from scrapy.item import Item, Field
 
 class Gig(Item):
+    content = Field()
     name = Field()
-    url = Field()
     skills = Field()
+    url = Field()
