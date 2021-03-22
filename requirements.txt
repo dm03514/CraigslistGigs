@@ -1,6 +1,6 @@
 Scrapy==0.16.3
 Twisted==19.7.0
-lxml==3.1beta1
+lxml==4.6.3
 pyOpenSSL==0.13
 w3lib==1.2
 zope.interface==4.0.3
