@@ -1,5 +1,5 @@
 Scrapy==0.16.3
-Twisted==19.7.0
+Twisted==22.2.0
 lxml==3.1beta1
 pyOpenSSL==0.13
 w3lib==1.2
